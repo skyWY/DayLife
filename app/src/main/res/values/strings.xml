@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">DayLife</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="main_settings">设置</string>
+    <string name="main_home">主页</string>
+    <string name="main_notify">通知</string>
+    <string name="main_search">搜索</string>
+    <string name="main_person">个人</string>
+    <string name="main_group">分组</string>
+    <string name="main_edit">编辑</string>
+</resources>
