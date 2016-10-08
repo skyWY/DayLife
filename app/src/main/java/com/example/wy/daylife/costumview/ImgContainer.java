@@ -48,4 +48,10 @@ public class ImgContainer extends ViewGroup{
     public Bitmap processPicture(Bitmap bitmap){
         return null;
     }
+
+    public void setPics(ArrayList<String> pic_urls, Context context) {
+        for(int i=0;i<pic_urls.size();i++){
+
+        }
+    }
 }

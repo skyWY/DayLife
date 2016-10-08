@@ -101,11 +101,7 @@ public class WBAdapter extends BaseAdapter {
         if(status.pic_urls!=null) {
             if (status.pic_urls.size() > 0) {
                 viewHolder.wb_content_img.setVisibility(View.VISIBLE);
-                for (int i = 0; i < status.pic_urls.size(); i++) {
-                    ImageView view = new ImageView(context);
-                    loader.displayImage(status.pic_urls.get(i), view);
-                    viewHolder.wb_content_img.addView(view);
-                }
+                viewHolder.wb_content_img.setPics(status.pic_urls,context);
             }
         }
 
