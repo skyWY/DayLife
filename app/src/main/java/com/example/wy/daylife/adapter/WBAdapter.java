@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,11 +17,14 @@ import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.costumview.CircleImageView;
 import com.example.wy.daylife.costumview.ImgContainer;
 import com.example.wy.daylife.tools.RegxTool;
+import com.example.wy.daylife.tools.ScreenUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sina.weibo.sdk.openapi.models.Status;
 
 import java.util.ArrayList;
+
+import cn.lankton.flowlayout.FlowLayout;
 
 /**
  * Created by wy on 2016/10/6.
@@ -33,6 +37,7 @@ public class WBAdapter extends BaseAdapter {
 
     private ImageLoaderConfiguration config;
     private ImageLoader loader;
+    private int width;
 
     public WBAdapter(Context context, ArrayList<Status> wb_statuses) {
         this.context=context;
@@ -42,6 +47,7 @@ public class WBAdapter extends BaseAdapter {
         config= new ImageLoaderConfiguration.Builder(context).build();
         loader=ImageLoader.getInstance();
         loader.init(config);
+        width= ScreenUtil.getScreenW(context);
 
     }
 
@@ -77,8 +83,9 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_zf= (TextView) convertView.findViewById(R.id.wb_zf_text);
             viewHolder.wb_comment= (TextView) convertView.findViewById(R.id.wb_comment_text);
             viewHolder.wb_content_img= (ImgContainer) convertView.findViewById(R.id.wb_content_img);
+            viewHolder.wb_zf_text= (TextView) convertView.findViewById(R.id.wb_zf_content_text);
+            viewHolder.wb_zf_ll= (LinearLayout) convertView.findViewById(R.id.wb_zf);
             convertView.setTag(viewHolder);
-
 
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
@@ -94,14 +101,20 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_source.setText(date+"     来自："+source);
         viewHolder.wb_content.setText(status.text);
 
-//        if(status.thumbnail_pic!=null && !status.thumbnail_pic.equals("")){
-//            viewHolder.wb_content_img.setVisibility(View.VISIBLE);
-//            loader.displayImage(status.thumbnail_pic,viewHolder.wb_content_img);
-//        }
-        if(status.pic_urls!=null) {
-            if (status.pic_urls.size() > 0) {
-                viewHolder.wb_content_img.setVisibility(View.VISIBLE);
-                viewHolder.wb_content_img.setPics(status.pic_urls,context);
+
+        if(status.retweeted_status!=null){
+            viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
+            viewHolder.wb_zf_text.setText(status.retweeted_status.text);
+        }else {
+            if (status.pic_urls != null) {
+                if (status.pic_urls.size() > 0) {
+                    viewHolder.wb_content_img.removeAllViews();
+                    for (int i = 0; i < status.pic_urls.size(); i++) {
+                        viewHolder.wb_content_img.setVisibility(View.VISIBLE);
+                        viewHolder.wb_content_img.setPics(status.pic_urls, context);
+
+                    }
+                }
             }
         }
 
@@ -122,6 +135,8 @@ public class WBAdapter extends BaseAdapter {
         public TextView wb_zan;
         public TextView wb_comment;
         public TextView wb_zf;
+        public TextView wb_zf_text;
+        public LinearLayout wb_zf_ll;
 
     }
 }
