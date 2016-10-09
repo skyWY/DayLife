@@ -18,7 +18,8 @@
         <com.example.wy.daylife.costumview.CircleImageView
             android:id="@+id/wb_face"
             android:layout_width="@dimen/wb_face"
-            android:layout_height="@dimen/wb_face" />
+            android:layout_height="@dimen/wb_face"
+            android:background="@drawable/ic_person_grey_500_36dp"/>
 
         <TextView
             android:id="@+id/wb_name"
@@ -62,12 +63,21 @@
             android:layout_below="@id/wb_content_text"
             android:orientation="vertical">
 
+            <!--<com.example.wy.daylife.costumview.ImgContainer-->
+                <!--android:id="@+id/wb_content_img"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/night_mode_size"-->
+                <!--android:visibility="gone" />-->
+
             <com.example.wy.daylife.costumview.ImgContainer
-                android:id="@+id/wb_content_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/night_mode_size"
-                android:visibility="gone" />
+                android:id="@+id/wb_content_img"
+                android:rowCount="3"
+                android:columnCount="3"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/night_mode_size"></com.example.wy.daylife.costumview.ImgContainer>
 
             <LinearLayout
                 android:id="@+id/wb_zf"

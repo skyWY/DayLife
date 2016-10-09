@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -20,11 +21,8 @@ import java.util.ArrayList;
  * Created by wy on 2016/10/7.
  */
 
-public class ImgContainer extends ViewGroup{
+public class ImgContainer extends GridLayout{
 
-    private ImageLoaderConfiguration config;
-    private ImageLoader loader;
-    private ArrayList<Bitmap> bitmaps;
     private int width;
     private int childHeight1=0;
 
@@ -38,29 +36,23 @@ public class ImgContainer extends ViewGroup{
 
     public ImgContainer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        config= new ImageLoaderConfiguration.Builder(context).build();
-        loader=ImageLoader.getInstance();
-        loader.init(config);
+
         width= ScreenUtil.getScreenW(context);
     }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
-
         l=0;t=0;
+        int w=getMeasuredWidth()/getColumnCount();
         for(int i=0;i<getChildCount();i++){
             View child=getChildAt(i);
-            int cWidth = child.getMeasuredWidth();
-            int cHeight = child.getMeasuredHeight();
-
-            if(i%3==0){
-                childHeight1+=cHeight;
+            child.layout(l,t,l+w,t+w);
+            if(i>0 && i%getColumnCount()==0){
+                t+=w;
             }
-            child.layout(l,t,l+cWidth,t+cHeight);
-            l+=cWidth;
+            l+=w;
         }
-
     }
 
     @Override
@@ -86,27 +78,12 @@ public class ImgContainer extends ViewGroup{
             int childWidth = childOne.getMeasuredWidth();
             setMeasuredDimension(childWidth,heightSize);
         } else if (heightMode == MeasureSpec.AT_MOST) {
-            setMeasuredDimension(widthSize, childHeight1);
+
+            for(int i=0;i<getChildCount();i++) {
+                View child = getChildAt(i);
+                childHeight1+=child.getMeasuredHeight();
+            }
+            setMeasuredDimension(widthSize,childHeight1);
         }
-
-    }
-
-    @Override
-    public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs)
-    {
-        return new MarginLayoutParams(getContext(), attrs);
-    }
-
-    public void setPics(ArrayList<String> pic_urls, Context context) {
-
-        for(int i=0;i<pic_urls.size();i++){
-            ImageView imageView=new ImageView(context);
-
-            loader.displayImage(pic_urls.get(i),imageView);
-            imageView.setLayoutParams(new LayoutParams(width/3,width/3));
-
-            this.addView(imageView);
-        }
-        invalidate();
     }
 }

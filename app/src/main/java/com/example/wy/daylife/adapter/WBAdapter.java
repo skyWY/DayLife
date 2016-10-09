@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -92,8 +93,11 @@ public class WBAdapter extends BaseAdapter {
         }
 
         Status status=statuses.get(position);
-        //设置布局中控件要显示的视图
-        loader.displayImage(status.user.avatar_hd,viewHolder.wb_face);
+        viewHolder.wb_face.setTag(status.user.avatar_hd);
+        if(viewHolder.wb_face.getTag()!=null && viewHolder.wb_face.getTag().equals(status.user.avatar_hd)) {
+            //设置布局中控件要显示的视图
+            loader.displayImage(status.user.avatar_hd, viewHolder.wb_face);
+        }
         viewHolder.wb_name.setText(status.user.screen_name);
 
         String source= RegxTool.getWBSource(status.source);
@@ -102,21 +106,27 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_content.setText(status.text);
 
 
-        if(status.retweeted_status!=null){
-            viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
-            viewHolder.wb_zf_text.setText(status.retweeted_status.text);
-        }else {
+//        if(status.retweeted_status!=null){
+//            viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
+//            viewHolder.wb_zf_text.setText(status.retweeted_status.text);
+//        }else {
             if (status.pic_urls != null) {
                 if (status.pic_urls.size() > 0) {
-                    viewHolder.wb_content_img.removeAllViews();
+                    viewHolder.wb_content_img.setVisibility(View.VISIBLE);
                     for (int i = 0; i < status.pic_urls.size(); i++) {
-                        viewHolder.wb_content_img.setVisibility(View.VISIBLE);
-                        viewHolder.wb_content_img.setPics(status.pic_urls, context);
+                        ImageView imageView=new ImageView(context);
+                        imageView.setTag(status.pic_urls.get(i));
+                        imageView.setImageResource(R.drawable.wb_background);
+                        if (imageView.getTag() != null && imageView.getTag().equals(status.pic_urls.get(i))) {
+                            loader.displayImage(status.pic_urls.get(i),imageView);
+                        }
+//                        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        viewHolder.wb_content_img.addView(imageView);
 
                     }
                 }
             }
-        }
+//        }
 
         viewHolder.wb_zan.setText(status.attitudes_count+"");
         viewHolder.wb_zf.setText(status.reposts_count+"");
