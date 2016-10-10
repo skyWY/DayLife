@@ -113,17 +113,18 @@ public class WBAdapter extends BaseAdapter {
             if (status.pic_urls != null) {
                 if (status.pic_urls.size() > 0) {
                     viewHolder.wb_content_img.setVisibility(View.VISIBLE);
-                    for (int i = 0; i < status.pic_urls.size(); i++) {
-                        ImageView imageView=new ImageView(context);
-                        imageView.setTag(status.pic_urls.get(i));
-                        imageView.setImageResource(R.drawable.wb_background);
-                        if (imageView.getTag() != null && imageView.getTag().equals(status.pic_urls.get(i))) {
-                            loader.displayImage(status.pic_urls.get(i),imageView);
-                        }
-//                        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                        viewHolder.wb_content_img.addView(imageView);
+//                    for (int i = 0; i < status.pic_urls.size(); i++) {
+//                        ImageView imageView=new ImageView(context);
+//                        imageView.setTag(status.pic_urls.get(i));
+//                        imageView.setImageResource(R.drawable.wb_background);
+//                        if (imageView.getTag() != null && imageView.getTag().equals(status.pic_urls.get(i))) {
+//                            loader.displayImage(status.pic_urls.get(i),imageView);
+//                        }
+////                        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//                        viewHolder.wb_content_img.addView(imageView);
 
-                    }
+//                    }
+                    viewHolder.wb_content_img.setPictures(status.pic_urls);
                 }
             }
 //        }
