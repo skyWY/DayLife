@@ -1,9 +1,13 @@
 package com.example.wy.daylife.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.wy.daylife.R;
@@ -20,10 +24,14 @@ import java.util.ArrayList;
  * Created by wy on 2016/10/5.
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private ListView wb_content;
     private ArrayList<Status> wb_statuses;
+    private SwipeRefreshLayout refreshLayout;
+
+    private static final int REFRESH_COMPLETE = 0X110;
+    private Adapter wbAdapter;
 
     public HomeFragment(){
         wb_statuses=new ArrayList<>();
@@ -42,22 +50,56 @@ public class HomeFragment extends BaseFragment {
 
     public void initData(View view){
         wb_content= (ListView) view.findViewById(R.id.home_listView);
-
+        refreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.home_fresh);
+        refreshLayout.setOnRefreshListener(this);
         String status= StatusWriterTool.readStatus();
 
         if(status!=null && !status.equals(""))
             wb_statuses= StatusList.parse(status).statusList;
 
         if(wb_statuses.size()>0){
-            wb_content.setAdapter(new WBAdapter(getActivity(), wb_statuses));
+            wbAdapter=new WBAdapter(getActivity(), wb_statuses);
+            wb_content.setAdapter((ListAdapter) wbAdapter);
         }else {
             new StatusTool(getActivity()).getfriendsTimeline(new StatusTool.StatusCallBack() {
                 @Override
                 public void getStatus(ArrayList<Status> statuses) {
                     wb_statuses = statuses;
-                    wb_content.setAdapter(new WBAdapter(getActivity(), wb_statuses));
+                    wbAdapter=new WBAdapter(getActivity(), wb_statuses);
+                    wb_content.setAdapter((ListAdapter) wbAdapter);
                 }
             });
         }
     }
+
+    @Override
+    public void onRefresh() {
+
+        new StatusTool(getActivity()).getfriendsTimeline(new StatusTool.StatusCallBack() {
+            @Override
+            public void getStatus(ArrayList<Status> statuses) {
+                wb_statuses = statuses;
+                wbAdapter=new WBAdapter(getActivity(), wb_statuses);
+                wb_content.setAdapter((ListAdapter) wbAdapter);
+            }
+        });
+        mHandler.sendEmptyMessageDelayed(REFRESH_COMPLETE, 2000);
+    }
+
+    private Handler mHandler = new Handler()
+    {
+        public void handleMessage(android.os.Message msg)
+        {
+            switch (msg.what)
+            {
+                case REFRESH_COMPLETE:
+                    synchronized (wbAdapter) {
+                        wbAdapter.notifyAll();
+                    }
+                    refreshLayout.setRefreshing(false);
+                    break;
+
+            }
+        };
+    };
 }
