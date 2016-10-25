@@ -132,7 +132,7 @@ public class ImgContainer extends ViewGroup{
             ImageView childrenView = (ImageView) getChildAt(i);
             childrenView.setTag(status_url.get(i));
             if (childrenView.getTag() != null && childrenView.getTag().equals(status_url.get(i))) {
-                loader.displayImage(status_url.get(i),childrenView);
+                loader.displayImage(status_url.get(i),childrenView,ImageLoaderTool.getOptions());
             }
 
 

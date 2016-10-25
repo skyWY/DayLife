@@ -51,4 +51,12 @@ public class ImageLoaderTool {
         loader.init(config);
         return loader;
     }
+
+    public static DisplayImageOptions getOptions(){
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+        return options;
+    }
 }

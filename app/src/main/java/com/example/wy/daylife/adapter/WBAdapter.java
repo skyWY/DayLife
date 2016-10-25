@@ -98,7 +98,7 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_face.setTag(status.user.avatar_hd);
         if(viewHolder.wb_face.getTag()!=null && viewHolder.wb_face.getTag().equals(status.user.avatar_hd)) {
             //设置布局中控件要显示的视图
-            loader.displayImage(status.user.avatar_hd, viewHolder.wb_face);
+            loader.displayImage(status.user.avatar_hd, viewHolder.wb_face,ImageLoaderTool.getOptions());
         }
         viewHolder.wb_name.setText(status.user.screen_name);
 
