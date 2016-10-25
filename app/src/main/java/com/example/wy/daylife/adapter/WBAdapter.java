@@ -17,6 +17,7 @@ import com.example.wy.daylife.R;
 import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.costumview.CircleImageView;
 import com.example.wy.daylife.costumview.ImgContainer;
+import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.example.wy.daylife.tools.RegxTool;
 import com.example.wy.daylife.tools.ScreenUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,7 +37,7 @@ public class WBAdapter extends BaseAdapter {
     private ArrayList<Status> statuses;
     private LayoutInflater inflater;
 
-    private ImageLoaderConfiguration config;
+//    private ImageLoaderConfiguration config;
     private ImageLoader loader;
     private int width;
 
@@ -45,9 +46,9 @@ public class WBAdapter extends BaseAdapter {
         this.statuses=wb_statuses;
         inflater=LayoutInflater.from(context);
 
-        config= new ImageLoaderConfiguration.Builder(context).build();
-        loader=ImageLoader.getInstance();
-        loader.init(config);
+ ///       config= new ImageLoaderConfiguration.Builder(context).build();
+        loader= ImageLoaderTool.getInstance(context);
+//        loader.init(config);
         width= ScreenUtil.getScreenW(context);
 
     }

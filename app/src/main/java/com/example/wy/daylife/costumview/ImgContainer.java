@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.tools.AsyncImageLoader;
+import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.example.wy.daylife.tools.ScreenUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -33,7 +34,7 @@ public class ImgContainer extends ViewGroup{
     private int row=0;
 
 
-    private ImageLoaderConfiguration config;
+//    private ImageLoaderConfiguration config;
     private ImageLoader loader;
 
     public ImgContainer(Context context) {
@@ -47,9 +48,9 @@ public class ImgContainer extends ViewGroup{
     public ImgContainer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        config= new ImageLoaderConfiguration.Builder(context).build();
-        loader=ImageLoader.getInstance();
-        loader.init(config);
+//        config= new ImageLoaderConfiguration.Builder(context).build();
+        loader= ImageLoaderTool.getInstance(context);
+//        loader.init(config);
 
         width= ScreenUtil.getScreenW(context);
     }
