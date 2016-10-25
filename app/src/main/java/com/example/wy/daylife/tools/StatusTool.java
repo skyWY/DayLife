@@ -66,7 +66,7 @@ public class StatusTool {
             }
         };
 
-        statusesAPI.friendsTimeline(0,0,50,1,false,0,false,mListener);
+        statusesAPI.friendsTimeline(0,0,30,1,false,0,false,mListener);
     }
 
     public interface StatusCallBack{

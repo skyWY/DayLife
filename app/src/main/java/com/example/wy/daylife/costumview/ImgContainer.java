@@ -32,7 +32,6 @@ public class ImgContainer extends ViewGroup{
     private int column=0;
     private int row=0;
 
-    private AsyncImageLoader imageLoader;
 
     private ImageLoaderConfiguration config;
     private ImageLoader loader;
@@ -53,7 +52,6 @@ public class ImgContainer extends ViewGroup{
         loader.init(config);
 
         width= ScreenUtil.getScreenW(context);
-        imageLoader=new AsyncImageLoader(context);
     }
 
     @Override
@@ -132,10 +130,10 @@ public class ImgContainer extends ViewGroup{
         for (int i = 0; i < childCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
             childrenView.setTag(status_url.get(i));
-//            if (childrenView.getTag() != null && childrenView.getTag().equals(status_url.get(i))) {
-//                loader.displayImage(status_url.get(i),childrenView);
-//            }
-            imageLoader.loadImage(childrenView,status_url.get(i));
+            if (childrenView.getTag() != null && childrenView.getTag().equals(status_url.get(i))) {
+                loader.displayImage(status_url.get(i),childrenView);
+            }
+
 
             int[] position = findPosition(i);
             int left = (singleWidth + gap) * position[1];

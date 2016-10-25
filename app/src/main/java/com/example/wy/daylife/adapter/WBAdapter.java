@@ -104,7 +104,7 @@ public class WBAdapter extends BaseAdapter {
         String date=RegxTool.getDate(status.created_at);
         viewHolder.wb_source.setText(date+"     来自："+source);
         viewHolder.wb_content.setText(status.text);
-
+        viewHolder.wb_content_img.setTag(position);
 
 //        if(status.retweeted_status!=null){
 //            viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
@@ -112,7 +112,9 @@ public class WBAdapter extends BaseAdapter {
 //        }else {
             if (status.pic_urls != null) {
                 if (status.pic_urls.size() > 0) {
-                    viewHolder.wb_content_img.setVisibility(View.VISIBLE);
+
+                    if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
+                        viewHolder.wb_content_img.setVisibility(View.VISIBLE);
 //                    for (int i = 0; i < status.pic_urls.size(); i++) {
 //                        ImageView imageView=new ImageView(context);
 //                        imageView.setTag(status.pic_urls.get(i));
@@ -124,7 +126,12 @@ public class WBAdapter extends BaseAdapter {
 //                        viewHolder.wb_content_img.addView(imageView);
 
 //                    }
-                    viewHolder.wb_content_img.setPictures(status.pic_urls);
+                        viewHolder.wb_content_img.setPictures(status.pic_urls);
+                    }
+                }
+            }else{
+                if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
+                    viewHolder.wb_content_img.setVisibility(View.GONE);
                 }
             }
 //        }
