@@ -87,6 +87,7 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_content_img= (ImgContainer) convertView.findViewById(R.id.wb_content_img);
             viewHolder.wb_zf_text= (TextView) convertView.findViewById(R.id.wb_zf_content_text);
             viewHolder.wb_zf_ll= (LinearLayout) convertView.findViewById(R.id.wb_zf);
+            viewHolder.wb_zf_content_img= (ImgContainer) convertView.findViewById(R.id.wb_zf_content_img);
             convertView.setTag(viewHolder);
 
         }else {
@@ -106,27 +107,42 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_source.setText(date+"     来自："+source);
         viewHolder.wb_content.setText(status.text);
         viewHolder.wb_content_img.setTag(position);
+        viewHolder.wb_zf_content_img.setTag(position);
+        viewHolder.wb_zf_ll.setTag(position);
 
-//        if(status.retweeted_status!=null){
-//            viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
-//            viewHolder.wb_zf_text.setText(status.retweeted_status.text);
-//        }else {
+        if(status.retweeted_status!=null){
+            viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
+            viewHolder.wb_zf_text.setText(status.retweeted_status.text);
+
+            if (status.retweeted_status.pic_urls != null) {
+
+                if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
+                    viewHolder.wb_content_img.setVisibility(View.GONE);
+                }
+
+                if (status.retweeted_status.pic_urls.size() > 0) {
+
+                    if(viewHolder.wb_zf_content_img.getTag()!=null && (int)viewHolder.wb_zf_content_img.getTag()==position) {
+                        viewHolder.wb_zf_content_img.setVisibility(View.VISIBLE);
+                        viewHolder.wb_zf_content_img.setPictures(status.retweeted_status.pic_urls);
+                    }
+                }
+            }else{
+                if(viewHolder.wb_zf_content_img.getTag()!=null && (int)viewHolder.wb_zf_content_img.getTag()==position) {
+                    viewHolder.wb_zf_content_img.setVisibility(View.GONE);
+                }
+            }
+
+        }else {
+            if(viewHolder.wb_zf_ll.getTag()!=null && (int)viewHolder.wb_zf_ll.getTag()==position) {
+                viewHolder.wb_zf_ll.setVisibility(View.GONE);
+            }
+
             if (status.pic_urls != null) {
                 if (status.pic_urls.size() > 0) {
 
                     if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                         viewHolder.wb_content_img.setVisibility(View.VISIBLE);
-//                    for (int i = 0; i < status.pic_urls.size(); i++) {
-//                        ImageView imageView=new ImageView(context);
-//                        imageView.setTag(status.pic_urls.get(i));
-//                        imageView.setImageResource(R.drawable.wb_background);
-//                        if (imageView.getTag() != null && imageView.getTag().equals(status.pic_urls.get(i))) {
-//                            loader.displayImage(status.pic_urls.get(i),imageView);
-//                        }
-////                        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//                        viewHolder.wb_content_img.addView(imageView);
-
-//                    }
                         viewHolder.wb_content_img.setPictures(status.pic_urls);
                     }
                 }
@@ -135,7 +151,7 @@ public class WBAdapter extends BaseAdapter {
                     viewHolder.wb_content_img.setVisibility(View.GONE);
                 }
             }
-//        }
+        }
 
         viewHolder.wb_zan.setText(status.attitudes_count+"");
         viewHolder.wb_zf.setText(status.reposts_count+"");
@@ -156,6 +172,7 @@ public class WBAdapter extends BaseAdapter {
         public TextView wb_zf;
         public TextView wb_zf_text;
         public LinearLayout wb_zf_ll;
+        public ImgContainer wb_zf_content_img;
 
     }
 }

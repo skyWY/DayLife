@@ -70,13 +70,6 @@
                 <!--android:layout_marginTop="@dimen/night_mode_size"-->
                 <!--android:visibility="gone" />-->
 
-            <com.example.wy.daylife.costumview.ImgContainer
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/wb_content_img"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/night_mode_size"></com.example.wy.daylife.costumview.ImgContainer>
-
             <LinearLayout
                 android:id="@+id/wb_zf"
                 android:layout_width="match_parent"
@@ -100,6 +93,13 @@
                 </com.example.wy.daylife.costumview.ImgContainer>
 
             </LinearLayout>
+
+            <com.example.wy.daylife.costumview.ImgContainer
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/wb_content_img"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/night_mode_size"></com.example.wy.daylife.costumview.ImgContainer>
 
             <RelativeLayout
                 android:layout_width="match_parent"
