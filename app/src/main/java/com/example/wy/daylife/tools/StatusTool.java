@@ -56,6 +56,7 @@ public class StatusTool {
                 if (!TextUtils.isEmpty(response)) {
                     LogUtil.i(TAG, response);
                     statusCallBack.getStatus(StatusList.parse(response).statusList);
+                    StatusWriterTool.writeStatus(response);
                 }
             }
 
