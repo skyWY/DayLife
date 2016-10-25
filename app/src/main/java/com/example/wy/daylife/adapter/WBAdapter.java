@@ -114,6 +114,10 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
             viewHolder.wb_zf_text.setText(status.retweeted_status.text);
 
+            if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
+                viewHolder.wb_content_img.setVisibility(View.GONE);
+            }
+
             if (status.retweeted_status.pic_urls != null) {
 
                 if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
