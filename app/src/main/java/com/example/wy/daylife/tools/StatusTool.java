@@ -33,12 +33,18 @@ public class StatusTool {
 
     private static String TAG="StatusTool";
 
+    private long since_id;
+    private long max_id;
+
     public StatusTool(){
 
     }
 
-    public StatusTool(Context context){
+
+    public StatusTool(Context context,long since_id,long max_id){
         this.context=context;
+        this.since_id=since_id;
+        this.max_id=max_id;
         // 获取当前已保存过的 Token
         mAccessToken = AccessTokenKeeper.readAccessToken(context);
         // 获取用户信息接口
@@ -67,7 +73,7 @@ public class StatusTool {
             }
         };
 
-        statusesAPI.friendsTimeline(0,0,30,1,false,0,false,mListener);
+        statusesAPI.friendsTimeline(since_id,max_id,30,1,false,0,false,mListener);
     }
 
     public interface StatusCallBack{
