@@ -69,7 +69,7 @@ public class StatusTool {
 
             @Override
             public void onWeiboException(WeiboException e) {
-                LogUtil.e(TAG, e.getMessage());
+                Log.i(TAG, e.getMessage());
                 ErrorInfo info = ErrorInfo.parse(e.getMessage());
             }
         };
