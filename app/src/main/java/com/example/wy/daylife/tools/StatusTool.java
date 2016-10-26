@@ -2,6 +2,7 @@ package com.example.wy.daylife.tools;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.wy.daylife.Interface.Constants;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -60,7 +61,7 @@ public class StatusTool {
             @Override
             public void onComplete(String response) {
                 if (!TextUtils.isEmpty(response)) {
-                    LogUtil.i(TAG, response);
+                    Log.i(TAG, response);
                     statusCallBack.getStatus(StatusList.parse(response).statusList);
                     StatusWriterTool.writeStatus(response);
                 }
