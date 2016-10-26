@@ -89,7 +89,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 if(scrollState== AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
-                    if(view.getLastVisiblePosition() == view.getCount() - 3){
+                    if(view.getLastVisiblePosition() == view.getCount() - 1){
                         Status lastStatus=wb_statuses.get(wb_statuses.size()-1);
                         long maxid=Long.parseLong(lastStatus.id)-1;
 //                        wb_content.setEnabled(false);
