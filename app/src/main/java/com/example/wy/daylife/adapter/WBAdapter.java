@@ -20,6 +20,7 @@ import com.example.wy.daylife.costumview.ImgContainer;
 import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.example.wy.daylife.tools.RegxTool;
 import com.example.wy.daylife.tools.ScreenUtil;
+import com.example.wy.daylife.tools.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sina.weibo.sdk.openapi.models.Status;
@@ -36,6 +37,7 @@ public class WBAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Status> statuses;
     private LayoutInflater inflater;
+    private static int emojiSize=0;
 
 //    private ImageLoaderConfiguration config;
     private ImageLoader loader;
@@ -94,6 +96,10 @@ public class WBAdapter extends BaseAdapter {
             viewHolder=(ViewHolder)convertView.getTag();
         }
 
+        if(emojiSize==0){
+            emojiSize=(int)viewHolder.wb_content.getTextSize();
+        }
+
         Status status=statuses.get(position);
         viewHolder.wb_face.setTag(status.user.avatar_hd);
         if(viewHolder.wb_face.getTag()!=null && viewHolder.wb_face.getTag().equals(status.user.avatar_hd)) {
@@ -105,30 +111,32 @@ public class WBAdapter extends BaseAdapter {
         String source= RegxTool.getWBSource(status.source);
         String date=RegxTool.getDate(status.created_at);
         viewHolder.wb_source.setText(date+"     来自："+source);
-        viewHolder.wb_content.setText(status.text);
+        viewHolder.wb_content.setText(StringUtils.getEmotionContent(context,emojiSize,status.text));
         viewHolder.wb_content_img.setTag(position);
         viewHolder.wb_zf_content_img.setTag(position);
         viewHolder.wb_zf_ll.setTag(position);
 
         if(status.retweeted_status!=null){
+            Status repost=status.retweeted_status;
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
-            viewHolder.wb_zf_text.setText(status.retweeted_status.text);
+
+            viewHolder.wb_zf_text.setText(StringUtils.getEmotionContent(context,emojiSize,"@"+repost.user.screen_name+":"+repost.text));
 
             if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                 viewHolder.wb_content_img.setVisibility(View.GONE);
             }
 
-            if (status.retweeted_status.pic_urls != null) {
+            if (repost.pic_urls != null) {
 
                 if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                     viewHolder.wb_content_img.setVisibility(View.GONE);
                 }
 
-                if (status.retweeted_status.pic_urls.size() > 0) {
+                if (repost.pic_urls.size() > 0) {
 
                     if(viewHolder.wb_zf_content_img.getTag()!=null && (int)viewHolder.wb_zf_content_img.getTag()==position) {
                         viewHolder.wb_zf_content_img.setVisibility(View.VISIBLE);
-                        viewHolder.wb_zf_content_img.setPictures(status.retweeted_status.pic_urls);
+                        viewHolder.wb_zf_content_img.setPictures(repost.pic_urls);
                     }
                 }
             }else{
