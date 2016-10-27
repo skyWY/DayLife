@@ -89,12 +89,6 @@ public class WBAuthActivity extends Activity {
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
         }
 
-        if(resultCode==RESULT_OK){
-            Intent intent=new Intent(this,MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
     }
 
     /**
@@ -110,12 +104,16 @@ public class WBAuthActivity extends Activity {
         public void onComplete(Bundle values) {
             // 从 Bundle 中解析 Token
             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
-            //从这里获取用户输入的 电话号码信息 
-            String phoneNum =  mAccessToken.getPhoneNum();
+
             if (mAccessToken.isSessionValid()) {
 
                 // 保存 Token 到 SharedPreferences
                 AccessTokenKeeper.writeAccessToken(WBAuthActivity.this, mAccessToken);
+
+                    Intent intent=new Intent(WBAuthActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+
 
             } else {
                 // 以下几种情况，您会收到 Code：
