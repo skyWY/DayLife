@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/wb_face"
+            android:autoLink="web|phone|email"
             android:layout_marginTop="@dimen/wb_source"
             android:textSize="@dimen/activity_horizontal_margin" />
 
@@ -83,6 +84,7 @@
                     android:id="@+id/wb_zf_content_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autoLink="web|phone|email"
                     android:textSize="@dimen/activity_horizontal_margin" />
 
                 <com.example.wy.daylife.costumview.ImgContainer
