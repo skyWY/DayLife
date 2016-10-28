@@ -82,20 +82,13 @@ public class StringUtils {
 			}
 		});
 
-		Pattern webPattern = Pattern.compile("http://t.cn/(\\w+)(.)");
+		Pattern webPattern = Pattern.compile("http://t.cn/(\\w+)");
 		String webScheme = String.format("%s/?%s=", Defs.WEB_SCHEMA, Defs.PARAM_UID);
-		Linkify.addLinks(v, webPattern, webScheme, new Linkify.MatchFilter() {
-
-			@Override
-			public boolean acceptMatch(CharSequence s, int start, int end) {
-				return s.charAt(end-1) != '.';
-			}
-
-		}, new Linkify.TransformFilter() {
+		Linkify.addLinks(v, webPattern, webScheme, null, new Linkify.TransformFilter() {
 			@Override
 			public String transformUrl(Matcher match, String url) {
-				Log.d(TAG, match.group(1));
-				return match.group(1);
+				Log.i(TAG, match.group(0));
+				return match.group(0);
 			}
 		});
 	}

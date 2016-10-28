@@ -58,12 +58,12 @@
                     android:scheme="devdiv" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.WebActivity">
+        <activity android:name=".activity.WebActivity"
+            android:parentActivityName=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
                     android:host="sina_profile2"
