@@ -7,8 +7,11 @@ import android.graphics.BitmapFactory;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.widget.TextView;
+
+import com.example.wy.daylife.Interface.Defs;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,5 +50,53 @@ public class StringUtils {
 		}
 
 		return spannableString;
+	}
+
+	public static void extractMention2Link(TextView v) {
+		v.setAutoLinkMask(0);
+
+		Pattern mentionsPattern = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+		String mentionsScheme = String.format("%s/?%s=", Defs.MENTIONS_SCHEMA, Defs.PARAM_UID);
+		Linkify.addLinks(v, mentionsPattern, mentionsScheme, new Linkify.MatchFilter() {
+
+			@Override
+			public boolean acceptMatch(CharSequence s, int start, int end) {
+				return s.charAt(end-1) != '.';
+			}
+
+		}, new Linkify.TransformFilter() {
+			@Override
+			public String transformUrl(Matcher match, String url) {
+				Log.d(TAG, match.group(1));
+				return match.group(1);
+			}
+		});
+
+		Pattern trendsPattern = Pattern.compile("#(\\w+?)#");
+		String trendsScheme = String.format("%s/?%s=", Defs.TRENDS_SCHEMA, Defs.PARAM_UID);
+		Linkify.addLinks(v, trendsPattern, trendsScheme, null, new Linkify.TransformFilter() {
+			@Override
+			public String transformUrl(Matcher match, String url) {
+				Log.d(TAG, match.group(1));
+				return match.group(1);
+			}
+		});
+
+		Pattern webPattern = Pattern.compile("http://t.cn/(\\w+)(.)");
+		String webScheme = String.format("%s/?%s=", Defs.WEB_SCHEMA, Defs.PARAM_UID);
+		Linkify.addLinks(v, webPattern, webScheme, new Linkify.MatchFilter() {
+
+			@Override
+			public boolean acceptMatch(CharSequence s, int start, int end) {
+				return s.charAt(end-1) != '.';
+			}
+
+		}, new Linkify.TransformFilter() {
+			@Override
+			public String transformUrl(Matcher match, String url) {
+				Log.d(TAG, match.group(1));
+				return match.group(1);
+			}
+		});
 	}
 }

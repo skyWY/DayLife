@@ -112,6 +112,7 @@ public class WBAdapter extends BaseAdapter {
         String date=RegxTool.getDate(status.created_at);
         viewHolder.wb_source.setText(date+"     来自："+source);
         viewHolder.wb_content.setText(StringUtils.getEmotionContent(context,emojiSize,status.text));
+        StringUtils.extractMention2Link(viewHolder.wb_content);
         viewHolder.wb_content_img.setTag(position);
         viewHolder.wb_zf_content_img.setTag(position);
         viewHolder.wb_zf_ll.setTag(position);
@@ -121,6 +122,7 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
 
             viewHolder.wb_zf_text.setText(StringUtils.getEmotionContent(context,emojiSize,"@"+repost.user.screen_name+":"+repost.text));
+            StringUtils.extractMention2Link(viewHolder.wb_zf_text);
 
             if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                 viewHolder.wb_content_img.setVisibility(View.GONE);
