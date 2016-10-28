@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wy.daylife.Interface.Constants;
+import com.example.wy.daylife.MyApplication;
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.adapter.GroupListAdapter;
 import com.example.wy.daylife.base.BaseActivity;
@@ -119,20 +120,24 @@ public class MainActivity extends BaseActivity {
                 // TODO Auto-generated method stub
                 switch (checkedId) {
                     case R.id.main_home:
+                        MyApplication.changeState(Constants.HOME);
                         fragment = new HomeFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment)
                                 .commit();
                         break;
                     case R.id.main_notify:
+                        MyApplication.changeState(Constants.NOTI);
                         fragment = new NotificationFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment).commit();
                         break;
                     case R.id.main_search:
+                        MyApplication.changeState(Constants.SEARCH);
                         fragment = new SearchFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment)
                                 .commit();
                         break;
                     case R.id.main_person:
+                        MyApplication.changeState(Constants.PERSONAL);
                         fragment = new PersonFragment();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment_container, fragment)
                                 .commit();

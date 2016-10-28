@@ -55,4 +55,10 @@ public interface Constants {
             "email,direct_messages_read,direct_messages_write,"
             + "friendships_groups_read,friendships_groups_write,statuses_to_me_read,"
             + "follow_app_official_microblog," + "invitation_write";
+
+
+    public static final int HOME=1;
+    public static final int NOTI=2;
+    public static final int SEARCH=3;
+    public static final int PERSONAL=4;
 }

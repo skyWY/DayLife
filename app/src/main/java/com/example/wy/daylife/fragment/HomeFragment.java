@@ -68,7 +68,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 if(MyApplication.homeChecked){
                     onRefresh();
                 }else{
-                    
+
                 }
                 MyApplication.changeState(Constants.HOME);
             }
