@@ -13,8 +13,11 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.wy.daylife.Interface.Constants;
+import com.example.wy.daylife.MyApplication;
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.adapter.WBAdapter;
 import com.example.wy.daylife.base.BaseFragment;
@@ -53,11 +56,23 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         footer=inflater.inflate(R.layout.footer_view,null);
         progressBar= (ProgressBar) footer.findViewById(R.id.listview_footer);
         initData(view);
+        initView();
         return view;
     }
 
-    private void initView(View view) {
-
+    private void initView() {
+        final RadioButton radioButton= (RadioButton) getActivity().findViewById(R.id.main_home);
+        radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(MyApplication.homeChecked){
+                    onRefresh();
+                }else{
+                    
+                }
+                MyApplication.changeState(Constants.HOME);
+            }
+        });
     }
 
     public void initData(View view){
