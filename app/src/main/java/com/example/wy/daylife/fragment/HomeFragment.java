@@ -1,5 +1,6 @@
 package com.example.wy.daylife.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.example.wy.daylife.Interface.Constants;
 import com.example.wy.daylife.MyApplication;
 import com.example.wy.daylife.R;
+import com.example.wy.daylife.activity.StatusDetailActivity;
 import com.example.wy.daylife.adapter.WBAdapter;
 import com.example.wy.daylife.base.BaseFragment;
 import com.example.wy.daylife.tools.StatusTool;
@@ -71,6 +74,15 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
                 }
                 MyApplication.changeState(Constants.HOME);
+            }
+        });
+
+        wb_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(getActivity(),StatusDetailActivity.class);
+                intent.putExtra("status",position);
+                startActivity(intent);
             }
         });
     }
