@@ -112,11 +112,13 @@ public class ImgContainer extends ViewGroup{
             if (childrenView.getTag() != null && childrenView.getTag().equals(status_url.get(i))) {
                 loader.displayImage(status_url.get(i),childrenView,ImageLoaderTool.getOptions());
             }
+            final int finalI = i;
             childrenView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent=new Intent(context,ImageShowActivity.class);
                     intent.putStringArrayListExtra("imgUrl",status_url);
+                    intent.putExtra("position", finalI);
                     context.startActivity(intent);
                 }
             });
