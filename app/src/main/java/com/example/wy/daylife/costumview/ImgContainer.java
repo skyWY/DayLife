@@ -1,16 +1,19 @@
 package com.example.wy.daylife.costumview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.example.wy.daylife.activity.ImageShowActivity;
 import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.tools.AsyncImageLoader;
 import com.example.wy.daylife.tools.ImageLoaderTool;
@@ -32,6 +35,7 @@ public class ImgContainer extends ViewGroup{
     private int gap=5;
     private int column=0;
     private int row=0;
+    private Context context;
 
 
 //    private ImageLoaderConfiguration config;
@@ -53,6 +57,7 @@ public class ImgContainer extends ViewGroup{
 //        loader.init(config);
 
         width= ScreenUtil.getScreenW(context);
+        this.context=context;
     }
 
     @Override
@@ -63,33 +68,6 @@ public class ImgContainer extends ViewGroup{
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec,heightMeasureSpec);
-//        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-//        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-//        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-//        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-//        measureChildren(widthMeasureSpec,heightMeasureSpec);
-//        //开始处理wrap_content,如果一个子元素都没有，就设置为0
-//        if (getChildCount() == 0) {
-//            setMeasuredDimension(0,0);
-//        } else if (widthMode == MeasureSpec.AT_MOST && heightMode == MeasureSpec.AT_MOST) {
-//            //ViewGroup，宽，高都是wrap_content，根据我们的需求，宽度是子控件的宽度，高度则是所有子控件的总和
-//            View childOne = getChildAt(0);
-//            int childWidth = childOne.getMeasuredWidth();
-//            int childHeight = childOne.getMeasuredHeight();
-//            setMeasuredDimension(childWidth, childHeight * getChildCount());
-//        } else if (widthMode == MeasureSpec.AT_MOST) {
-//            //ViewGroup的宽度为wrap_content,则高度不需要管，宽度还是自控件的宽度
-//            View childOne = getChildAt(0);
-//            int childWidth = childOne.getMeasuredWidth();
-//            setMeasuredDimension(childWidth,heightSize);
-//        } else if (heightMode == MeasureSpec.AT_MOST) {
-//
-//            for(int i=0;i<getChildCount();i++) {
-//                View child = getChildAt(i);
-//                childHeight1+=child.getMeasuredHeight();
-//            }
-//            setMeasuredDimension(widthSize,childHeight1);
-//        }
     }
 
     public void setPictures(ArrayList<String> data){
@@ -134,7 +112,14 @@ public class ImgContainer extends ViewGroup{
             if (childrenView.getTag() != null && childrenView.getTag().equals(status_url.get(i))) {
                 loader.displayImage(status_url.get(i),childrenView,ImageLoaderTool.getOptions());
             }
-
+            childrenView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context,ImageShowActivity.class);
+                    intent.putStringArrayListExtra("imgUrl",status_url);
+                    context.startActivity(intent);
+                }
+            });
 
             int[] position = findPosition(i);
             int left = (singleWidth + gap) * position[1];
@@ -163,12 +148,6 @@ public class ImgContainer extends ViewGroup{
     private ImageView generateImageView() {
         ImageView iv = new ImageView(getContext());
         iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        iv.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         iv.setBackgroundColor(Color.parseColor("#f5f5f5"));
         return iv;
     }

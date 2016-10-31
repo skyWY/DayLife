@@ -71,7 +71,8 @@
                     android:scheme="devdiv" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.StatusDetailActivity"></activity>
+        <activity android:name=".activity.StatusDetailActivity" />
+        <activity android:name=".activity.ImageShowActivity"></activity>
     </application>
 
 </manifest>
