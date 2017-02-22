@@ -108,6 +108,7 @@ public class ImgContainer extends ViewGroup{
 
         for (int i = 0; i < childCount; i++) {
             ImageView childrenView = (ImageView) getChildAt(i);
+            childrenView.setScaleType(ImageView.ScaleType.FIT_XY);
             childrenView.setTag(status_url.get(i));
             if (childrenView.getTag() != null && childrenView.getTag().equals(status_url.get(i))) {
                 loader.displayImage(status_url.get(i),childrenView,ImageLoaderTool.getOptions());

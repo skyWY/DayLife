@@ -26,27 +26,28 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash);
-
-        // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                goHome();
-            }
-        }, SPLASH_DELAY_MILLIS);
+        goHome();
     }
 
     private void goHome() {
+        // 使用Handler的postDelayed方法，3秒后执行跳转到MainActivity
         mAccessToken= AccessTokenKeeper.readAccessToken(this);
-
         if(mAccessToken.isSessionValid()){
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, SPLASH_DELAY_MILLIS);
         }else{
-            Intent intent = new Intent(SplashActivity.this, WBAuthActivity.class);
-            startActivity(intent);
-            finish();
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    Intent intent = new Intent(SplashActivity.this, WBAuthActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, SPLASH_DELAY_MILLIS);
         }
     }
-
 }
