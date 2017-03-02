@@ -13,4 +13,5 @@
     <dimen name="wb_source">8dp</dimen>
     <dimen name="wb_name_source">2dp</dimen>
     <dimen name="wb_img_height">150dp</dimen>
+    <dimen name="line_height">1px</dimen>
 </resources>
