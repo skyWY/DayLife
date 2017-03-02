@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.main_fragment_group)
     public RadioGroup main_group;
 
-    private static User userInfo;
+    public static User userInfo;
     private ImageLoaderConfiguration config;
     private ImageLoader loader;
     private List<Group> groups;
