@@ -16,6 +16,8 @@
 
 package com.sina.weibo.sdk.openapi.models;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import org.json.JSONArray;
@@ -78,7 +80,7 @@ public class Status {
      * list_id为分组的组号
      */
     public Visible visible;
-    /** 微博配图地址。多图时返回多图链接。无配图返回"[]" */
+    /** 微博配图地址。多图时返回多图链接。无配图返回"[]" ，缩略图*/
     public ArrayList<String> pic_urls;
     /** 微博流内的推广微博ID */
     //public Ad ad;
@@ -133,8 +135,11 @@ public class Status {
             JSONObject tmpObject = null;
             for (int ix = 0; ix < length; ix++) {
                 tmpObject = picUrlsArray.optJSONObject(ix);
+ //               Log.i("status",tmpObject.toString()+" "+status.thumbnail_pic+" "+status.bmiddle_pic+" "+status.original_pic);
                 if (tmpObject != null) {
-                    status.pic_urls.add(tmpObject.optString("thumbnail_pic"));
+                    String thumbnail_pic=tmpObject.optString("thumbnail_pic");
+                    String bmiddle_pic=thumbnail_pic.replace("thumbnail","bmiddle");
+                    status.pic_urls.add(bmiddle_pic);
                 }
             }
         }

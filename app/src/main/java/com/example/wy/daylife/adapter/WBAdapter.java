@@ -117,6 +117,7 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_zf_content_img.setTag(position);
         viewHolder.wb_zf_ll.setTag(position);
 
+        //判断是否是转发的，转发的要继续处理内部内容显示
         if(status.retweeted_status!=null){
             Status repost=status.retweeted_status;
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
@@ -127,7 +128,7 @@ public class WBAdapter extends BaseAdapter {
             if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                 viewHolder.wb_content_img.setVisibility(View.GONE);
             }
-
+            //处理图片显示
             if (repost.pic_urls != null) {
 
                 if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
@@ -148,6 +149,7 @@ public class WBAdapter extends BaseAdapter {
             }
 
         }else {
+            //不是转发的，处理显示
             if(viewHolder.wb_zf_ll.getTag()!=null && (int)viewHolder.wb_zf_ll.getTag()==position) {
                 viewHolder.wb_zf_ll.setVisibility(View.GONE);
             }
