@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/main_textSize"
         android:textColor="@color/white"
-        android:text="韦镒_77"
         android:layout_below="@id/main_face"
         android:layout_marginLeft="@dimen/night_mode_size"/>
 

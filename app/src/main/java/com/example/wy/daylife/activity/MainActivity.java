@@ -52,6 +52,8 @@ public class MainActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     public Toolbar toolbar;
+    @Bind(R.id.tool_group)
+    public TextView userName;
     @Bind(R.id.main_draw)
     public DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
@@ -90,6 +92,7 @@ public class MainActivity extends BaseActivity {
             public void getUser(User user) {
                 userInfo=user;
                 name.setText(user.screen_name);
+                userName.setText(user.screen_name);
                 config= new ImageLoaderConfiguration.Builder(MainActivity.this).build();
                 loader=ImageLoader.getInstance();
                 loader.init(config);
