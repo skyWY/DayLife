@@ -1,5 +1,7 @@
 package com.example.wy.daylife.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +50,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private View footer;
     private ProgressBar progressBar;
     private static String TAG="HomeFragment";
+    private Activity mActivity;
 
     public HomeFragment(){
         wb_statuses=new ArrayList<>();
@@ -99,14 +102,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             wb_statuses= StatusList.parse(status).statusList;
 
         if(wb_statuses!=null && wb_statuses.size()>0){
-            wbAdapter=new WBAdapter(getActivity(), wb_statuses);
+            wbAdapter=new WBAdapter(getMactivity(), wb_statuses);
             wb_content.setAdapter(wbAdapter);
         }else {
-            new StatusTool(getActivity(),0,0).getfriendsTimeline(new StatusTool.StatusCallBack() {
+            new StatusTool(getMactivity(),0,0).getfriendsTimeline(new StatusTool.StatusCallBack() {
                 @Override
                 public void getStatus(ArrayList<Status> statuses) {
                     wb_statuses = statuses;
-                    wbAdapter=new WBAdapter(getActivity(), wb_statuses);
+                    wbAdapter=new WBAdapter(getMactivity(), wb_statuses);
                     wb_content.setAdapter(wbAdapter);
                 }
             });
@@ -135,7 +138,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void loadData(long maxid){
         Log.i(TAG,""+maxid);
         progressBar.setVisibility(View.VISIBLE);
-        new StatusTool(getActivity(),0,maxid).getfriendsTimeline(new StatusTool.StatusCallBack() {
+        new StatusTool(getMactivity(),0,maxid).getfriendsTimeline(new StatusTool.StatusCallBack() {
             @Override
             public void getStatus(ArrayList<Status> statuses) {
                 if(statuses!=null) {
@@ -151,11 +154,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
 
-        new StatusTool(getActivity(),0,0).getfriendsTimeline(new StatusTool.StatusCallBack() {
+        new StatusTool(getMactivity(),0,0).getfriendsTimeline(new StatusTool.StatusCallBack() {
             @Override
             public void getStatus(ArrayList<Status> statuses) {
                 wb_statuses = statuses;
-                wbAdapter=new WBAdapter(getActivity(), wb_statuses);
+                wbAdapter=new WBAdapter(getMactivity(), wb_statuses);
                 wb_content.setAdapter(wbAdapter);
             }
         });
@@ -186,4 +189,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         };
     };
+
+    @Override
+    public void onAttach(Activity context) {
+        super.onAttach(context);
+        mActivity=context;
+    }
+
+    public Context getMactivity() {
+        return mActivity;
+    }
 }
