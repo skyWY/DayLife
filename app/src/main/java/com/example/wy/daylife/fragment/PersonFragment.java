@@ -14,7 +14,11 @@ import com.example.wy.daylife.adapter.PersonPagerAdapter;
 import com.example.wy.daylife.base.BaseFragment;
 import com.sina.weibo.sdk.openapi.models.User;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by wy on 2016/10/5.
@@ -23,10 +27,9 @@ import butterknife.Bind;
 public class PersonFragment extends BaseFragment {
 
     private User mUser;
-    @Bind(R.id.person_tabs)
-    public PagerSlidingTabStrip mStrip;
-    @Bind(R.id.person_viewpager)
+
     public ViewPager mPager;
+    List<BaseFragment> fs;
 
     public PersonFragment(){
         mUser= MainActivity.userInfo;
@@ -36,9 +39,23 @@ public class PersonFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_person,container,false);
-        mPager.setAdapter(new PersonPagerAdapter(getActivity().getSupportFragmentManager()));
-        mStrip.setViewPager(mPager);
+        initView(view);
+        initData();
+        mPager.setAdapter(new PersonPagerAdapter(getChildFragmentManager(),fs));
+        mPager.setCurrentItem(0);
         return view;
+    }
+
+    private void initView(View view) {
+        mPager= (ViewPager) view.findViewById(R.id.person_viewpager);
+
+    }
+
+    private void initData(){
+        fs=new ArrayList<>();
+        fs.add(new HomeFragment());
+        fs.add(new HomeFragment());
+        fs.add(new HomeFragment());
     }
 
 }
