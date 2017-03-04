@@ -13,11 +13,13 @@
             android:layout_width="@dimen/main_face"
             android:layout_height="@dimen/main_face"
             android:layout_gravity="center"
-            android:id="@+id/person_face"/>
+            android:id="@+id/person_face"
+            android:layout_marginTop="@dimen/com_sina_weibo_sdk_loginview_padding_top"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_height"
-            android:background="@color/black"/>
+            android:background="@color/black"
+            android:layout_marginTop="@dimen/com_sina_weibo_sdk_loginview_padding_top"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,7 +56,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/com_sina_weibo_sdk_loginview_padding_top">
 
 
         <TextView
@@ -87,7 +90,8 @@
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/person_viewpager">
+        android:id="@+id/person_viewpager"
+        android:layout_marginTop="@dimen/com_sina_weibo_sdk_loginview_padding_top">
 
     </android.support.v4.view.ViewPager>
 
