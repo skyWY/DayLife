@@ -3,11 +3,13 @@ package com.example.wy.daylife.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.example.wy.daylife.R;
@@ -38,6 +40,11 @@ public class PersonFragment extends BaseFragment {
     private CircleImageView face;
     private ImageLoader loader;
     private Activity mActivity;
+    private TabLayout layout;
+
+    private TextView weibo;
+    private TextView guanzhu;
+    private TextView fans;
 
     public PersonFragment(){
         mUser= MainActivity.userInfo;
@@ -54,8 +61,8 @@ public class PersonFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view=inflater.inflate(R.layout.fragment_person,container,false);
-        initView(view);
         initData();
+        initView(view);
         mPager.setAdapter(new PersonPagerAdapter(getChildFragmentManager(),fs));
         mPager.setCurrentItem(0);
         return view;
@@ -63,9 +70,28 @@ public class PersonFragment extends BaseFragment {
 
     private void initView(View view) {
         mPager= (ViewPager) view.findViewById(R.id.person_viewpager);
+
+        layout= (TabLayout) view.findViewById(R.id.tabs);
+        layout.addTab(layout.newTab().setText("全部"));
+        layout.addTab(layout.newTab().setText("收藏"));
+        layout.addTab(layout.newTab().setText("相册"));
+        PersonPagerAdapter adapter=new PersonPagerAdapter(getChildFragmentManager(),fs);
+        mPager.setAdapter(adapter);
+        mPager.setCurrentItem(0);
+
+        layout.setupWithViewPager(mPager);
+
         face= (CircleImageView) view.findViewById(R.id.person_face);
         loader = ImageLoaderTool.getInstance(getMactivity());
         loader.displayImage(mUser.avatar_hd,face);
+
+        weibo= (TextView) view.findViewById(R.id.person_weibo);
+        guanzhu= (TextView) view.findViewById(R.id.person_guanzhu);
+        fans= (TextView) view.findViewById(R.id.person_fans);
+
+        weibo.setText(mUser.statuses_count+"\n"+"微博");
+        guanzhu.setText(mUser.friends_count+"\n"+"关注");
+        fans.setText(mUser.followers_count+"\n"+"粉丝");
 
     }
 

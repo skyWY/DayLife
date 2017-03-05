@@ -18,6 +18,7 @@ import java.util.List;
 public class PersonPagerAdapter extends FragmentPagerAdapter {
 
     List<BaseFragment> fragments;
+    String[] titles={"全部","收藏","相册"};
 
     public PersonPagerAdapter(FragmentManager fm,List<BaseFragment> fragments) {
         super(fm);
@@ -34,4 +35,9 @@ public class PersonPagerAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
+    //设置tablayout和viewpager联动后，要通过此方法设置tab的标题，否则不显示
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return titles[position];
+    }
 }

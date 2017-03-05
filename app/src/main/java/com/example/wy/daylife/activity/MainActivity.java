@@ -1,19 +1,14 @@
 package com.example.wy.daylife.activity;
 
-import android.graphics.RadialGradient;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wy.daylife.Interface.Constants;
 import com.example.wy.daylife.MyApplication;
@@ -26,21 +21,13 @@ import com.example.wy.daylife.fragment.HomeFragment;
 import com.example.wy.daylife.fragment.NotificationFragment;
 import com.example.wy.daylife.fragment.PersonFragment;
 import com.example.wy.daylife.fragment.SearchFragment;
-import com.example.wy.daylife.tools.AccessTokenKeeper;
 import com.example.wy.daylife.tools.GroupTool;
 import com.example.wy.daylife.tools.UserTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.exception.WeiboException;
-import com.sina.weibo.sdk.net.RequestListener;
-import com.sina.weibo.sdk.openapi.UsersAPI;
-import com.sina.weibo.sdk.openapi.legacy.GroupAPI;
-import com.sina.weibo.sdk.openapi.models.ErrorInfo;
 import com.sina.weibo.sdk.openapi.models.Group;
 import com.sina.weibo.sdk.openapi.models.GroupList;
 import com.sina.weibo.sdk.openapi.models.User;
-import com.sina.weibo.sdk.utils.LogUtil;
 
 import java.util.List;
 
