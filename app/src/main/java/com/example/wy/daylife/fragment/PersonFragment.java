@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -17,6 +18,7 @@ import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.adapter.PersonPagerAdapter;
 import com.example.wy.daylife.base.BaseFragment;
 import com.example.wy.daylife.costumview.CircleImageView;
+import com.example.wy.daylife.costumview.CustomLinearLayout;
 import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.User;
