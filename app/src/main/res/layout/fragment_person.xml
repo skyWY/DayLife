@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <com.example.wy.daylife.costumview.CustomLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/person_ll">
         <com.example.wy.daylife.costumview.CircleImageView
             android:layout_width="@dimen/main_face"
             android:layout_height="@dimen/main_face"
@@ -52,7 +53,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/com_sina_weibo_sdk_loginview_text_size"/>
         </LinearLayout>
-    </LinearLayout>
+    </com.example.wy.daylife.costumview.CustomLinearLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
