@@ -4,23 +4,30 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.adapter.PersonPagerAdapter;
 import com.example.wy.daylife.base.BaseFragment;
 import com.example.wy.daylife.costumview.CircleImageView;
+import com.example.wy.daylife.costumview.CustomLinearLayout;
 import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by wy on 2016/10/5.
