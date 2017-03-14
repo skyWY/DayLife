@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <com.example.wy.daylife.costumview.CustomLinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -53,7 +53,7 @@
                 android:gravity="center"
                 android:textSize="@dimen/com_sina_weibo_sdk_loginview_text_size"/>
         </LinearLayout>
-    </com.example.wy.daylife.costumview.CustomLinearLayout>
+    </LinearLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
