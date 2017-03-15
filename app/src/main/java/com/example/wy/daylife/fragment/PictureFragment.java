@@ -36,8 +36,7 @@ public class PictureFragment extends BaseFragment {
 
     private void initDataAndView() {
         mDatas = new ArrayList<String>();
-        for(int i='A';i<='z';i++)
-        {
+        for(int i='A';i<='z';i++) {
             mDatas.add(String.valueOf((char)i));
         }
         mRecAdapter = new RecAdapter(getActivity(),mDatas);
