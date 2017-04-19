@@ -5,11 +5,15 @@ import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
+
+import com.example.wy.daylife.activity.ImageShowActivity;
 
 /**
  * Created by wy on 2017/4/19.
@@ -41,6 +45,7 @@ public class GestureImageView extends ImageView implements ScaleGestureDetector.
     private Matrix mMatrix;
     private float mMScale;
 
+    private GestureDetector detector;
 
     public GestureImageView(Context context) {
         this(context,null);
@@ -50,13 +55,23 @@ public class GestureImageView extends ImageView implements ScaleGestureDetector.
         this(context, attrs,0);
     }
 
-    public GestureImageView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GestureImageView(final Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         //因为用矩阵实现缩放，平移，所以强制设置imageview的模式为矩阵
         super.setScaleType(ScaleType.MATRIX);
         setOnTouchListener(this);
         mGestureDetector=new ScaleGestureDetector(context,this);
         getViewTreeObserver().addOnGlobalLayoutListener(this);
+        detector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+            //单击销毁活动
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                //点击图片 销毁activity
+                ImageShowActivity isa= (ImageShowActivity) context;
+                isa.finish();
+                return true;
+            }
+        });
     }
 
     //只有返回true手势缩放才会生效
@@ -171,6 +186,10 @@ public class GestureImageView extends ImageView implements ScaleGestureDetector.
     // 所以只能在touch事件中调用mGestureDetector的touch方法
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+
+        if (detector.onTouchEvent(event))
+            return true;
+
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 isFirstMoved = false;

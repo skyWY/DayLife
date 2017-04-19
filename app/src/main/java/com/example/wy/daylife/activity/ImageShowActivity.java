@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.base.BaseActivity;
+import com.example.wy.daylife.costumview.GestureImageView;
 import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -80,7 +81,7 @@ public class ImageShowActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-            ImageView imageView=new ImageView(ImageShowActivity.this);
+            GestureImageView imageView=new GestureImageView(ImageShowActivity.this);
             loader.displayImage(list.get(position),imageView);
             imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             container.addView(imageView);
