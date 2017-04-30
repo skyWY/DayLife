@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -10,18 +9,26 @@
     <EditText
         android:id="@+id/editext"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:gravity="top"
         android:inputType="textMultiLine"
         android:hint="说点什么"
         android:background="@drawable/edittext_border"
         android:layout_below="@id/toolbar"/>
 
+    <com.example.wy.daylife.costumview.GridViewImage
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/post_picture_container"
+        android:layout_below="@id/editext">
+
+    </com.example.wy.daylife.costumview.GridViewImage>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/post_positon"
-            android:layout_below="@id/editext"
+            android:layout_below="@id/post_picture_container"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:background="@drawable/ic_room_grey_400_24dp"/>
@@ -30,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/post_picture"
-            android:layout_below="@id/editext"
+            android:layout_below="@id/post_picture_container"
             android:layout_alignTop="@id/post_positon"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@id/post_positon"
@@ -40,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/post_emotion"
-            android:layout_below="@id/editext"
+            android:layout_below="@id/post_picture_container"
             android:layout_alignTop="@id/post_positon"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@id/post_picture"
@@ -50,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/post_at"
-            android:layout_below="@id/editext"
+            android:layout_below="@id/post_picture_container"
             android:layout_alignTop="@id/post_positon"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@id/post_emotion"
@@ -61,11 +68,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/post_post"
-            android:layout_below="@id/editext"
+            android:layout_below="@id/post_picture_container"
             android:layout_alignTop="@id/post_positon"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:background="@drawable/ic_send_grey_400_24dp"/>
-
 
     <LinearLayout
         android:id="@+id/ll_emotion_dashboard"

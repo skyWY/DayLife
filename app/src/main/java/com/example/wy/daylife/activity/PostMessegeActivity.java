@@ -3,6 +3,7 @@ package com.example.wy.daylife.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,8 +20,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +32,10 @@ import com.example.wy.daylife.R;
 import com.example.wy.daylife.adapter.EmotionGvAdapter;
 import com.example.wy.daylife.adapter.EmotionPagerAdapter;
 import com.example.wy.daylife.base.BaseActivity;
+import com.example.wy.daylife.costumview.GridViewImage;
 import com.example.wy.daylife.tools.DisplayUtils;
 import com.example.wy.daylife.tools.EmotionUtils;
+import com.example.wy.daylife.tools.ScreenUtil;
 import com.example.wy.daylife.tools.StringUtils;
 
 import java.io.File;
@@ -66,6 +71,8 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
     public Toolbar toolbar;
     @Bind(R.id.tool_group)
     public TextView textView;
+    @Bind(R.id.post_picture_container)
+    public GridViewImage layout;
 
     private EmotionPagerAdapter emotionPagerGvAdapter;
 
@@ -75,7 +82,7 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
 
     private static String TAG="PostMessegeActivity";
 
-
+    private int picWidth=0;
 
     @Override
     public int getLayoutId() {
@@ -188,19 +195,22 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
                 if (data != null) {
                     Bundle extras = data.getExtras();
                     Bitmap head = extras.getParcelable("data");
-                    UUID uuid=UUID.randomUUID();
-                    String fileName =uuid+".jpg";//图片名字
-                    setPicToView(head,fileName);
-                    int curPosition = et_emotion.getSelectionStart();
-                    StringBuilder sb = new StringBuilder(et_emotion.getText().toString());
-                    sb.insert(curPosition, "["+fileName+"]");
+//                    UUID uuid=UUID.randomUUID();
+//                    String fileName =uuid+".jpg";//图片名字
+//                    setPicToView(head,fileName);
+//                    int curPosition = et_emotion.getSelectionStart();
+//                    StringBuilder sb = new StringBuilder(et_emotion.getText().toString());
+//                    sb.insert(curPosition, "["+fileName+"]");
+//
+//                    et_emotion.setText(StringUtils.getPictureContent(
+//                            this, (int)et_emotion.getTextSize(), sb.toString()));
+//
+//                    // 将光标设置到图片的右侧
+//                    et_emotion.setSelection(curPosition + fileName.length());
 
-                    et_emotion.setText(StringUtils.getEmotionContent(
-                            this, (int)et_emotion.getTextSize(), sb.toString()));
-
-                    // 将光标设置到新增完表情的右侧
-                    et_emotion.setSelection(curPosition + fileName.length());
-
+                    ImageView imageView=new ImageView(this);
+                    imageView.setImageBitmap(head);
+                    layout.addView(imageView,picWidth,picWidth);
                 }
                 break;
         }
@@ -247,7 +257,7 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
 
     @Override
     public void initData() {
-
+        picWidth=(ScreenUtil.getScreenW(this)-10)/3;
     }
 
     @Override
@@ -271,6 +281,12 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
             }
         });
 
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
