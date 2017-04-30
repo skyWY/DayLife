@@ -24,7 +24,8 @@ public class EmotionUtils implements Serializable {
 	 * key-表情文字;value-表情图片资源
 	 */
 	public static Map<String, Integer> emojiMap;
-
+	private static String path="/sdcard/myHead/";//sd路径
+	private static String TAG="EmotionUtils";
 
 	static {
 		emojiMap = new HashMap<String, Integer>();
@@ -32,7 +33,7 @@ public class EmotionUtils implements Serializable {
 		emojiMap.put("[嘻嘻]", R.drawable.d_xixi);
 		emojiMap.put("[哈哈]", R.drawable.d_haha);
 		emojiMap.put("[爱你]", R.drawable.d_aini);
-		emojiMap.put("[挖鼻]", R.drawable.d_wabishi);
+		emojiMap.put("[挖鼻屎]", R.drawable.d_wabishi);
 		emojiMap.put("[吃惊]", R.drawable.d_chijing);
 		emojiMap.put("[晕]", R.drawable.d_yun);
 		emojiMap.put("[泪]", R.drawable.d_lei);
@@ -90,5 +91,17 @@ public class EmotionUtils implements Serializable {
 		return integer == null ? -1 : integer;
 	}
 
+	public static Bitmap getImgByName2(String key) {
+
+		String url=path+key;
+		File mFile=new File(url);
+		//若该文件存在
+		if (mFile.exists()) {
+			Bitmap bitmap= BitmapFactory.decodeFile(url);
+			return bitmap;
+		}else {
+			return null;
+		}
+	}
 
 }

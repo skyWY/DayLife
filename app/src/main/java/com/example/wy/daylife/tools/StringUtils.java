@@ -52,6 +52,7 @@ public class StringUtils {
 		return spannableString;
 	}
 
+	//把内容中的@，##，超链接标称不同颜色
 	public static void extractMention2Link(TextView v) {
 		v.setAutoLinkMask(0);
 
