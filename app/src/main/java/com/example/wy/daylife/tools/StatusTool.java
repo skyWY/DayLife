@@ -1,6 +1,7 @@
 package com.example.wy.daylife.tools;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -79,6 +80,29 @@ public class StatusTool {
 
     public interface StatusCallBack{
         void getStatus(ArrayList<Status> statuses);
+    }
+
+    public void upload(String text,Bitmap bitmap){
+
+        /**
+         * 微博 OpenAPI 回调接口。
+         */
+        RequestListener mListener = new RequestListener() {
+            @Override
+            public void onComplete(String response) {
+                if (!TextUtils.isEmpty(response)) {
+                    Log.i(TAG, response);
+                }
+            }
+
+            @Override
+            public void onWeiboException(WeiboException e) {
+                Log.i(TAG, e.getMessage());
+                ErrorInfo info = ErrorInfo.parse(e.getMessage());
+            }
+        };
+
+        statusesAPI.upload(text,bitmap,"0.0","0.0",mListener);
     }
 
 }
