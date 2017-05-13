@@ -16,6 +16,7 @@ import android.text.SpannableString;
 import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -83,6 +84,7 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
     private static String TAG="PostMessegeActivity";
 
     private int picWidth=0;
+    private LayoutInflater inflater=null;
 
     @Override
     public int getLayoutId() {
@@ -207,10 +209,10 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
 //
 //                    // 将光标设置到图片的右侧
 //                    et_emotion.setSelection(curPosition + fileName.length());
-
-                    ImageView imageView=new ImageView(this);
+                    View view=inflater.inflate(R.layout.post_picture,null);
+                    ImageView imageView= (ImageView) view.findViewById(R.id.picture);
                     imageView.setImageBitmap(head);
-                    layout.addView(imageView,picWidth,picWidth);
+                    layout.addView(view,picWidth,picWidth);
                 }
                 break;
         }
@@ -258,6 +260,7 @@ public class PostMessegeActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void initData() {
         picWidth=(ScreenUtil.getScreenW(this)-10)/3;
+        inflater=getLayoutInflater();
     }
 
     @Override

@@ -51,32 +51,6 @@ public class StringUtils {
 		return spannableString;
 	}
 
-	public static SpannableString getPictureContent(final Context context, int size, String source) {
-		SpannableString spannableString = new SpannableString(source);
-		Resources res = context.getResources();
-
-		String regexEmotion2 = "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}";
-		Pattern patternEmotion2 = Pattern.compile(regexEmotion2);
-		Matcher matcherEmotion2 = patternEmotion2.matcher(spannableString);
-
-		while(matcherEmotion2.find()){
-			// 获取匹配到的具体字符
-			String key = matcherEmotion2.group();
-			// 匹配字符串的开始位置
-			int start = matcherEmotion2.start();
-			// 利用表情名字获取到对应的图片
-			String fileName=key+".jpg";
-			Log.i(TAG,fileName);
-			Bitmap img = EmotionUtils.getImgByName2(fileName);
-			if(img!=null) {
-				ImageSpan span = new ImageSpan(context, img);
-				spannableString.setSpan(span, start-1, start + fileName.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			}
-		}
-
-		return spannableString;
-	}
-
 
 	//把内容中的@，##，超链接标称不同颜色
 	public static void extractMention2Link(TextView v) {
@@ -109,7 +83,7 @@ public class StringUtils {
 			}
 		});
 
-		Pattern webPattern = Pattern.compile("http://t.cn/(\\w+)");
+		Pattern webPattern = Pattern.compile("((http|https|ftp|ftps):\\/\\/)?([a-zA-Z0-9-]+\\.){1,5}(com|cn|net|org|hk|tw)((\\/(\\w|-)+(\\.([a-zA-Z]+))?)+)?(\\/)?(\\??([\\.%:a-zA-Z0-9_-]+=[#\\.%:a-zA-Z0-9_-]+(&)?)+)?");
 		String webScheme = String.format("%s/?%s=", Defs.WEB_SCHEMA, Defs.PARAM_UID);
 		Linkify.addLinks(v, webPattern, webScheme, null, new Linkify.TransformFilter() {
 			@Override

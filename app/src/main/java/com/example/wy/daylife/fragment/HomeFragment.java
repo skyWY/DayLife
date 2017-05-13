@@ -83,9 +83,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         wb_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getActivity(),StatusDetailActivity.class);
-                intent.putExtra("status",position);
-                startActivity(intent);
+//                Intent intent=new Intent(getActivity(),StatusDetailActivity.class);
+//                intent.putExtra("status",position);
+                Toast.makeText(getActivity(),"点击了："+position+" 位置的微博", Toast.LENGTH_SHORT);
+//                startActivity(intent);
             }
         });
     }

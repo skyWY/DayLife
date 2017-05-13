@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.wy.daylife.Interface.MyLinkMovementMethod;
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.costumview.CircleImageView;
@@ -90,6 +91,8 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_zf_text= (TextView) convertView.findViewById(R.id.wb_zf_content_text);
             viewHolder.wb_zf_ll= (LinearLayout) convertView.findViewById(R.id.wb_zf);
             viewHolder.wb_zf_content_img= (ImgContainer) convertView.findViewById(R.id.wb_zf_content_img);
+            viewHolder.wb_zf_text.setOnTouchListener(MyLinkMovementMethod.getInstance());
+            viewHolder.wb_content.setOnTouchListener(MyLinkMovementMethod.getInstance());
             convertView.setTag(viewHolder);
 
         }else {
@@ -121,10 +124,8 @@ public class WBAdapter extends BaseAdapter {
         if(status.retweeted_status!=null){
             Status repost=status.retweeted_status;
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
-
             viewHolder.wb_zf_text.setText(StringUtils.getEmotionContent(context,emojiSize,"@"+repost.user.screen_name+":"+repost.text));
             StringUtils.extractMention2Link(viewHolder.wb_zf_text);
-
             if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                 viewHolder.wb_content_img.setVisibility(View.GONE);
             }

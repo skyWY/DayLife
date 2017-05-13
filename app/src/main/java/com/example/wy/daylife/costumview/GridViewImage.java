@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -92,7 +93,7 @@ public class GridViewImage extends LinearLayout{
         bottom=top+picWidth;
 
         for(int i=0;i<childCount;i++){
-            ImageView view= (ImageView) getChildAt(i);
+            FrameLayout view= (FrameLayout) getChildAt(i);
             view.setVisibility(View.VISIBLE);
 
             view.layout(left,top,right,bottom);
