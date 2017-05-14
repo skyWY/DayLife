@@ -86,6 +86,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 //                Intent intent=new Intent(getActivity(),StatusDetailActivity.class);
 //                intent.putExtra("status",position);
                 Toast.makeText(getActivity(),"点击了："+position+" 位置的微博", Toast.LENGTH_SHORT);
+                Log.i(TAG,"pppppp");
 //                startActivity(intent);
             }
         });
