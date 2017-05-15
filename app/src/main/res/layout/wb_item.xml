@@ -49,7 +49,7 @@
             android:layout_alignTop="@id/wb_name"
             android:background="@drawable/ic_more_vert_grey_500_18dp" />
 
-        <TextView
+        <com.example.wy.daylife.costumview.TextViewFixTouchConsume
             android:id="@+id/wb_content_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
+                <com.example.wy.daylife.costumview.TextViewFixTouchConsume
                     android:id="@+id/wb_zf_content_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

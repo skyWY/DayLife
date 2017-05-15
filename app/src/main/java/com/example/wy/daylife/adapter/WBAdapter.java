@@ -18,6 +18,7 @@ import com.example.wy.daylife.R;
 import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.costumview.CircleImageView;
 import com.example.wy.daylife.costumview.ImgContainer;
+import com.example.wy.daylife.costumview.TextViewFixTouchConsume;
 import com.example.wy.daylife.tools.ImageLoaderTool;
 import com.example.wy.daylife.tools.RegxTool;
 import com.example.wy.daylife.tools.ScreenUtil;
@@ -83,22 +84,20 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_face= (CircleImageView) convertView.findViewById(R.id.wb_face);
             viewHolder.wb_name=(TextView)convertView.findViewById(R.id.wb_name);
             viewHolder.wb_source= (TextView) convertView.findViewById(R.id.wb_source);
-            viewHolder.wb_content= (TextView) convertView.findViewById(R.id.wb_content_text);
+            viewHolder.wb_content= (TextViewFixTouchConsume) convertView.findViewById(R.id.wb_content_text);
             viewHolder.wb_zan= (TextView) convertView.findViewById(R.id.wb_zan_text);
             viewHolder.wb_zf= (TextView) convertView.findViewById(R.id.wb_zf_text);
             viewHolder.wb_comment= (TextView) convertView.findViewById(R.id.wb_comment_text);
             viewHolder.wb_content_img= (ImgContainer) convertView.findViewById(R.id.wb_content_img);
-            viewHolder.wb_zf_text= (TextView) convertView.findViewById(R.id.wb_zf_content_text);
+            viewHolder.wb_zf_text= (TextViewFixTouchConsume) convertView.findViewById(R.id.wb_zf_content_text);
             viewHolder.wb_zf_ll= (LinearLayout) convertView.findViewById(R.id.wb_zf);
             viewHolder.wb_zf_content_img= (ImgContainer) convertView.findViewById(R.id.wb_zf_content_img);
-            viewHolder.wb_zf_text.setOnTouchListener(MyLinkMovementMethod.getInstance());
-            viewHolder.wb_content.setOnTouchListener(MyLinkMovementMethod.getInstance());
             convertView.setTag(viewHolder);
 
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
         }
-
+        ((ViewGroup)convertView).setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
         if(emojiSize==0){
             emojiSize=(int)viewHolder.wb_content.getTextSize();
         }
@@ -116,6 +115,8 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_source.setText(date+"     来自："+source);
         viewHolder.wb_content.setText(StringUtils.getEmotionContent(context,emojiSize,status.text));
         StringUtils.extractMention2Link(viewHolder.wb_content);
+        viewHolder.wb_content.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
+
         viewHolder.wb_content_img.setTag(position);
         viewHolder.wb_zf_content_img.setTag(position);
         viewHolder.wb_zf_ll.setTag(position);
@@ -126,6 +127,7 @@ public class WBAdapter extends BaseAdapter {
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
             viewHolder.wb_zf_text.setText(StringUtils.getEmotionContent(context,emojiSize,"@"+repost.user.screen_name+":"+repost.text));
             StringUtils.extractMention2Link(viewHolder.wb_zf_text);
+            viewHolder.wb_zf_text.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
             if(viewHolder.wb_content_img.getTag()!=null && (int)viewHolder.wb_content_img.getTag()==position) {
                 viewHolder.wb_content_img.setVisibility(View.GONE);
             }
@@ -182,12 +184,12 @@ public class WBAdapter extends BaseAdapter {
         public CircleImageView wb_face;
         public TextView wb_name;
         public TextView wb_source;
-        public TextView wb_content;
+        public TextViewFixTouchConsume wb_content;
         public ImgContainer wb_content_img;
         public TextView wb_zan;
         public TextView wb_comment;
         public TextView wb_zf;
-        public TextView wb_zf_text;
+        public TextViewFixTouchConsume wb_zf_text;
         public LinearLayout wb_zf_ll;
         public ImgContainer wb_zf_content_img;
 
