@@ -1,6 +1,7 @@
 package com.example.wy.daylife.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.base.BaseActivity;
@@ -10,7 +11,8 @@ import com.example.wy.daylife.fragment.StatusFragment;
 public class StatusDetailActivity extends BaseActivity {
 
     private BaseFragment fragment;
-    private int position;
+    private String wb_id;
+    private static final String TAG="StatusDetailActivity";
 
     @Override
     public int getLayoutId() {
@@ -19,7 +21,7 @@ public class StatusDetailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        position=getIntent().getIntExtra("status",0);
+        wb_id=getIntent().getStringExtra("status");
     }
 
     @Override
@@ -29,10 +31,9 @@ public class StatusDetailActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        fragment = new StatusFragment();
-        Bundle bundle=new Bundle();
-        bundle.putInt("status",position);
-        fragment.setArguments(bundle);
+        long id=Long.parseLong(wb_id);
+        Log.i(TAG,wb_id);
+        fragment = StatusFragment.newInstance(id);
         getSupportFragmentManager().beginTransaction().replace(R.id.status_detail_container, fragment)
                 .commit();
     }

@@ -1,21 +1,14 @@
 package com.example.wy.daylife.adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.wy.daylife.Interface.MyLinkMovementMethod;
 import com.example.wy.daylife.R;
-import com.example.wy.daylife.activity.MainActivity;
 import com.example.wy.daylife.costumview.CircleImageView;
 import com.example.wy.daylife.costumview.ImgContainer;
 import com.example.wy.daylife.costumview.TextViewFixTouchConsume;
@@ -24,12 +17,9 @@ import com.example.wy.daylife.tools.RegxTool;
 import com.example.wy.daylife.tools.ScreenUtil;
 import com.example.wy.daylife.tools.StringUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sina.weibo.sdk.openapi.models.Status;
 
 import java.util.ArrayList;
-
-import cn.lankton.flowlayout.FlowLayout;
 
 /**
  * Created by wy on 2016/10/6.
@@ -121,7 +111,7 @@ public class WBAdapter extends BaseAdapter {
         viewHolder.wb_zf_content_img.setTag(position);
         viewHolder.wb_zf_ll.setTag(position);
 
-        //判断是否是转发的，转发的要继续处理内部内容显示
+        //判断是否有转发的，有转发的要继续处理内部内容显示
         if(status.retweeted_status!=null){
             Status repost=status.retweeted_status;
             viewHolder.wb_zf_ll.setVisibility(View.VISIBLE);
