@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.example.wy.daylife"
         minSdkVersion 19
@@ -35,4 +35,6 @@ dependencies {
     compile 'cn.lankton:flowlayout:2.0.0'
     testCompile 'junit:junit:4.12'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.Cutta:GifView:1.1'
 }

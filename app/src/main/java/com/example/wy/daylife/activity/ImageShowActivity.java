@@ -1,17 +1,16 @@
 package com.example.wy.daylife.activity;
 
 import android.graphics.PointF;
-import android.net.Uri;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.wy.daylife.R;
 import com.example.wy.daylife.base.BaseActivity;
 import com.example.wy.daylife.costumview.GestureImageView;
@@ -22,6 +21,7 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.Bind;
+
 
 public class ImageShowActivity extends BaseActivity {
 
@@ -86,27 +86,27 @@ public class ImageShowActivity extends BaseActivity {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
 
-            GestureImageView imageView=new GestureImageView(ImageShowActivity.this);
-            loader.displayImage(list.get(position),imageView);
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            container.addView(imageView);
-            return imageView;
+            if(list.get(position).endsWith(".gif")){
+                ImageView imageView=new ImageView(ImageShowActivity.this);
+                Glide.with(ImageShowActivity.this).load(list.get(position)).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                //imageView.play();
+                container.addView(imageView);
+                return imageView;
+            }else {
+                GestureImageView imageView=new GestureImageView(ImageShowActivity.this);
+                loader.displayImage(list.get(position),imageView);
+                imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                container.addView(imageView);
+                return imageView;
+            }
 
-//            final SubsamplingScaleImageView imageView = new SubsamplingScaleImageView(ImageShowActivity.this);
-//
-//            imageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
-//            imageView.setMinScale(1.0F);
-//            Log.i(TAG,list.get(position));
-//
-//            //下载图片保存到本地
-//            Glide.with(ImageShowActivity.this)
-//                    .load(list.get(position)).downloadOnly(new SimpleTarget<File>() {
-//                @Override
-//                public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-//                    // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
-//                    imageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(2.0F, new PointF(0, 0), 0));
-//                }});
+//            GestureImageView imageView=new GestureImageView(ImageShowActivity.this);
+//            loader.displayImage(list.get(position),imageView);
+//            imageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            container.addView(imageView);
 //            return imageView;
+
         }
     };
 }
